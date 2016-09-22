@@ -11,6 +11,7 @@
 
 + (NSData *)encryptedDataForData:(NSData *)data
                         password:(NSString *)password
+                          AESKey:(NSData **)AESKey
                               iv:(NSData **)iv
                             salt:(NSData **)salt
                            error:(NSError **)error;

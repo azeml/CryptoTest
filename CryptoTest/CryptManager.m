@@ -21,11 +21,7 @@ const NSUInteger kPBKDFRounds = 10000;  // ~80ms on an iPhone 4
 
 // ===================
 
-+ (NSData *)encryptedDataForData:(NSData *)data
-                        password:(NSString *)password
-                              iv:(NSData **)iv
-                            salt:(NSData **)salt
-                           error:(NSError **)error {
++ (NSData *)encryptedDataForData:(NSData *)data password:(NSString *)password AESKey:(NSData **)AESKey iv:(NSData *__autoreleasing *)iv salt:(NSData *__autoreleasing *)salt error:(NSError *__autoreleasing *)error {
     NSAssert(iv, @"IV must not be NULL");
     NSAssert(salt, @"salt must not be NULL");
     
@@ -33,6 +29,7 @@ const NSUInteger kPBKDFRounds = 10000;  // ~80ms on an iPhone 4
     *salt = [self randomDataOfLength:kPBKDFSaltSize];
     
     NSData *key = [self AESKeyForPassword:password salt:*salt];
+    *AESKey = key;
     
     size_t outLength;
     NSMutableData *
